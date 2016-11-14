@@ -1,0 +1,11 @@
+{
+  "name": "my-blog",
+  "version": "1.0.0",
+  "description": "node blog app backend and frontend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "furkan sarıtaş",
+  "license": "MIT"
+}
