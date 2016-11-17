@@ -49,7 +49,7 @@ app.use(bodyParser.urlencoded({
 * Express Validator Middlewere 
 */
 app.use(expressValidator({
-    errorFormatter: function (param, msg, value) {
+    errorFormatter: function(param, msg, value) {
         var namespace = param.split('.');
         var root = namespace.shift();
         var formParam = root;
@@ -69,16 +69,17 @@ app.use(expressValidator({
 /*
 * Setting Middlewares here
 */
+app.use(loginMiddlewere);
 app.use('/', routes);
 app.use('/user', userRoute);
-app.get('*', function (req, res) {
+app.get('*', function(req, res) {
     res.send('nothing 404!');
 });
 
 /*
 * Start and listen SERVER
 */
-app.listen(app.get('port'), function () {
+app.listen(app.get('port'), function() {
 
     console.log(`Web Server Started with Port of ${GLOBALS.PORT} !`);
 });

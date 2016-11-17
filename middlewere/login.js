@@ -5,6 +5,7 @@ var User = require('../models/users');
 var jwt = require('jsonwebtoken');
 
 module.exports = function (req, res, next) {
+    delete req.user;
     if (!req.cookies.Auth) return next();
     jwt.verify(crypto.AES.decrypt(req.cookies.Auth, GLOBALS.AESKEY).toString(crypto.enc.Utf8), GLOBALS.HS256KEY, { algorithm: 'HS256' }, function (err, decodedToken) {
         if (err) return next();
