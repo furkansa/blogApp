@@ -39,6 +39,20 @@ UserSchema.pre('save', function(next) {
     });
 });
 
+UserSchema.pre('update', function(next) {
+    console.log('its fired' + self.password);
+    self = this;
+
+    bcrypt.genSalt(10, function(err, salt) {
+        if (err) return next(err);
+        bcrypt.hash(self.password, salt, null, function(err, hash) {
+            if (err) return next(err);
+            self.password = hash;
+            next();
+        });
+    });
+});
+
 /*
 *   Check if email bigger then 3 and unique  
 */

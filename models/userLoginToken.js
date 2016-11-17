@@ -48,9 +48,9 @@ module.exports = userLoginToken;
 /*
 *   Clear all documents from User model
 */
-module.exports.clearUserDocuments = function () {
-    User.remove({}, function (err) {
+module.exports.clearUserLoginToken = function () {
+    userLoginToken.remove({}, function (err) {
         if (err) return;
-        console.log('User documents are cleared!');
+        console.log('all login tokensare cleared!');
     });
 }
