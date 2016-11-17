@@ -23,29 +23,15 @@ var UserSchema = new Schema({
 /*
 *   PreSave check if new created or password changed then hash password
 */
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
     self = this;
 
     //if password NOT newly created or changed
     if (!self.isModified('password')) return next();
 
-    bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.genSalt(10, function (err, salt) {
         if (err) return next(err);
-        bcrypt.hash(self.password, salt, null, function(err, hash) {
-            if (err) return next(err);
-            self.password = hash;
-            next();
-        });
-    });
-});
-
-UserSchema.pre('update', function(next) {
-    console.log('its fired' + self.password);
-    self = this;
-
-    bcrypt.genSalt(10, function(err, salt) {
-        if (err) return next(err);
-        bcrypt.hash(self.password, salt, null, function(err, hash) {
+        bcrypt.hash(self.password, salt, null, function (err, hash) {
             if (err) return next(err);
             self.password = hash;
             next();
@@ -56,12 +42,12 @@ UserSchema.pre('update', function(next) {
 /*
 *   Check if email bigger then 3 and unique  
 */
-UserSchema.statics.isEmailValid = function(email, callback) {
+UserSchema.statics.isEmailValid = function (email, callback) {
     if (!email) return callback(false);
     if (email.length < 4) return callback(false);
 
     self = this;
-    self.find({ email: email }, function(err, user) {
+    self.find({ email: email }, function (err, user) {
         if (err) return callback(false);
         if (user.length > 0) return callback(false);
         return callback(true);
@@ -71,7 +57,7 @@ UserSchema.statics.isEmailValid = function(email, callback) {
 /*
 *   Check is password obey rule and passwords match
 */
-UserSchema.statics.isPasswordValid = function(password, password2, callback) {
+UserSchema.statics.isPasswordValid = function (password, password2, callback) {
     if (!password) return callback(false);
     if (password !== password2) return callback(false);
     if (!password.match('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')) return callback(false);
@@ -81,9 +67,9 @@ UserSchema.statics.isPasswordValid = function(password, password2, callback) {
 /*
 * Compare Passwords
 */
-UserSchema.methods.comparePasswords = function(postPassword, callback) {
+UserSchema.methods.comparePasswords = function (postPassword, callback) {
     self = this;
-    bcrypt.compare(postPassword, self.password, function(err, result) {
+    bcrypt.compare(postPassword, self.password, function (err, result) {
         if (err) return callback(false);
         return callback(result);
     });
@@ -99,8 +85,8 @@ module.exports = User;
 /*
 *   Clear all documents from User model
 */
-module.exports.clearUserDocuments = function() {
-    User.remove({}, function(err) {
+module.exports.clearUserDocuments = function () {
+    User.remove({}, function (err) {
         if (err) return;
         console.log('User documents are cleared!');
     });

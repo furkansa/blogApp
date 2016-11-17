@@ -4,11 +4,10 @@ var cookie = require('cookie-parser');
 
 var mongoose = require('mongoose');
 
-router.get('/', function (req, res) {
-	res.render('index', {
-		title: 'hey its title'
-	});
+router.get('/', function(req, res) {
+    res.render('index', {
+        title: 'hey its title'
+    });
 });
-
 
 module.exports = router;

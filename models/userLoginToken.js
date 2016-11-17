@@ -51,6 +51,6 @@ module.exports = userLoginToken;
 module.exports.clearUserLoginToken = function () {
     userLoginToken.remove({}, function (err) {
         if (err) return;
-        console.log('all login tokensare cleared!');
+        console.log('all login tokens are cleared!');
     });
 }
