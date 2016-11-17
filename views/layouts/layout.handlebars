@@ -5,11 +5,17 @@
     <title>{{title}}</title>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="shortcut icon" type="favicon.co" href="favicon.ico" />
 </head>
 
 <body>
-    {{#if error}} {{error}} {{/if}} {{{body}}}
-    <script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
+    <div class="container">
+        {{#if error}} {{error}} {{/if}}
+    </div>
+    <div class="container">
+        {{{body}}}
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
 </body>

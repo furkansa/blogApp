@@ -4,10 +4,13 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var expressValidator = require('express-validator');
+var loginMiddlewere = require('./middlewere/login');
+var cookie = require('cookie-parser');
 
 var GLOBALS = require('./config/globals');
 
 var routes = require('./routes/index');
+var userRoute = require('./routes/user');
 
 var DB = require('./config/server');
 
@@ -36,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /*
 * BodyParser Middlewere for JSON and only accpect string or arrays
 */
+app.use(cookie());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -66,12 +70,10 @@ app.use(expressValidator({
 * Setting Middlewares here
 */
 app.use('/', routes);
+app.use('/user',userRoute);
 app.get('*', function(req,res){
     res.send('nothing 404!');
 });
-
-
-var DBConnection;
 
 /*
 * Start and listen SERVER
