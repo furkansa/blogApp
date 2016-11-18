@@ -50,9 +50,9 @@ userLoginTokenSchema.methods.resolve = function (callback) {
 }
 
 /*
-*   Remove token after 10mins
+*   Remove token after 1 hours
 */
-userLoginTokenSchema.index({ createdAt: 1 }, { expireAfterSeconds: 60 * 10 });
+userLoginTokenSchema.index({ createdAt: 1 }, { expireAfterSeconds: 60 * 60 });
 
 /*
 *   Creating model from schema
