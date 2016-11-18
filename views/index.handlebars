@@ -1,7 +1,10 @@
-{{#if userEmail}}
-{{userEmail}}
-{{/if}}
+{{#if userEmail}} {{userEmail}} {{/if}}
 <div class="container">
+    {{#if message}}{{message}}{{/if}}
     <h1 class="display-3 text-center">TESTING INDEX</h1>
+    <a href="/user/login">Login</a>
+    <a href="/user/changePassword">Change Password</a>
+    <a href="/user/create">Create User</a>
     <a href="/user/test">Go test to user</a>
+    <a href="/user/logout">Logout</a>
 </div>

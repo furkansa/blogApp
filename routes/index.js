@@ -4,10 +4,17 @@ var cookie = require('cookie-parser');
 
 var mongoose = require('mongoose');
 
-router.get('/', function(req, res) {
-    res.render('index', {
+router.get('/', function (req, res) {
+    if (req.cookies.message) {
+        return res.render('index', {
+            title: 'hey its title',
+            message: req.cookies.message
+        });
+    }
+    return res.render('index', {
         title: 'hey its title'
     });
+
 });
 
 module.exports = router;
