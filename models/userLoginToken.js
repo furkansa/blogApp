@@ -20,9 +20,25 @@ var userLoginTokenSchema = new Schema({
 */
 userLoginTokenSchema.pre('save', function (next) {
     self = this;
-    self.token =crypto.AES.encrypt(self.token, GLOBALS.AESKEY).toString();
+    self.token = crypto.AES.encrypt(self.token, GLOBALS.AESKEY).toString();
     next();
 });
+
+/*
+*   find token and remove it from db
+*/
+userLoginTokenSchema.statics.deleteToken = function (token, callback) {
+    console.log('its working now');
+    self = this;
+    self.findOne({ token: token }, function (err, result) {
+        if (err) return callback(false);
+        if (!result) return callback(false);
+        result.remove(function (err) {
+            if (err) return callback(false);
+            return callback(true);
+        });
+    });
+};
 
 
 /*
@@ -30,7 +46,7 @@ userLoginTokenSchema.pre('save', function (next) {
 */
 userLoginTokenSchema.methods.resolve = function (callback) {
     self = this;
-    callback(crypto.AES.decrypt(self.token,GLOBALS.AESKEY).toString(crypto.enc.Utf8));
+    callback(crypto.AES.decrypt(self.token, GLOBALS.AESKEY).toString(crypto.enc.Utf8));
 }
 
 /*

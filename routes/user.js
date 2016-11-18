@@ -115,14 +115,14 @@ router.post('/changePassword', function(req, res) {
 
 router.get('/logout', function(req, res) {
     res.clearCookie('message');
-    if (req.user) {
+    if (!req.user) return res.redirect('/');
+    
+    userLoginToken.deleteToken(req.cookies.Auth, function(result) {
+        if (!result) return res.redirect('/');
         res.clearCookie('Auth');
-        res.cookie('message', 'log out successfully');
-        return res.redirect('/');
-    }
-
-    res.cookie('message', 'nothing to logout');    
-    return res.redirect('/');
+        res.cookie('message', 'successfully logout');
+        res.redirect('/');
+    });
 });
 
 module.exports = router;
